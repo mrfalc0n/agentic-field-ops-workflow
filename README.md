@@ -39,6 +39,7 @@ The system creates a simple operating layer:
 - [docs/product-brief.md](docs/product-brief.md) - PM framing, users, constraints, metrics, and decisions.
 - [docs/architecture.md](docs/architecture.md) - system architecture and source-of-truth boundaries.
 - [docs/agentic-ai-roadmap.md](docs/agentic-ai-roadmap.md) - practical AI agent roadmap.
+- [docs/agent-output-schemas.md](docs/agent-output-schemas.md) - structured output schemas for planned agents.
 - [docs/qbo-integration.md](docs/qbo-integration.md) - sanitized QuickBooks Online integration design.
 - [docs/security-and-sanitization.md](docs/security-and-sanitization.md) - what was removed and why.
 - [docs/show-us-what-im-building.md](docs/show-us-what-im-building.md) - concise job-application narrative.
