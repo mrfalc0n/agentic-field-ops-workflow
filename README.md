@@ -2,7 +2,9 @@
 
 Sanitized public proof asset for a lightweight field-operations system built around AppSheet, Google Sheets, Google Apps Script, and QuickBooks Online integration patterns.
 
-This repository is a public, client-agnostic version of a real operational workflow. It shows how messy job intake, scheduling context, exception handling, payout review, and invoice preparation can be turned into a structured operating layer that is ready for human-in-the-loop AI agents.
+This repository is a public, client-agnostic version of a real Arcwise field-operations workflow. It shows how messy job intake, scheduling context, exception handling, payout review, and invoice preparation can be turned into a structured operating layer that is ready for human-in-the-loop AI agents.
+
+Built by Arcwise. Broader product and systems context lives in the [Arcwise Systems Portfolio](https://github.com/mrfalc0n/arcwise-systems-portfolio).
 
 ## What This Demonstrates
 
@@ -40,6 +42,7 @@ The system creates a simple operating layer:
 - [docs/qbo-integration.md](docs/qbo-integration.md) - sanitized QuickBooks Online integration design.
 - [docs/security-and-sanitization.md](docs/security-and-sanitization.md) - what was removed and why.
 - [docs/show-us-what-im-building.md](docs/show-us-what-im-building.md) - concise job-application narrative.
+- [docs/current-vs-planned.md](docs/current-vs-planned.md) - honest line between deployed automation and agent roadmap.
 - [diagrams/architecture.mmd](diagrams/architecture.mmd) - Mermaid architecture diagram.
 - [diagrams/agent-loop.mmd](diagrams/agent-loop.mmd) - Mermaid agent loop diagram.
 - [examples/mock-data/jobs.csv](examples/mock-data/jobs.csv) - safe example job records.
@@ -60,7 +63,21 @@ That matters because small-business operations are full of partial context, ambi
 
 This is a sanitized public case-study repository. It is not the private production implementation.
 
-## Suggested Application Blurb
+What exists today:
+
+- A real workflow pattern using AppSheet, Google Sheets, Google Apps Script, and QuickBooks Online integration concepts.
+- Sanitized code samples that show intake promotion and invoice payload preparation.
+- A source-of-truth model for operational jobs, exception queues, summaries, and invoice-ready context.
+
+What is intentionally roadmap:
+
+- LLM-based intake classification.
+- Agent-authored exception summaries.
+- AI-generated invoice-note drafts.
+- Weekly operations brief generation.
+- Approved tool execution against accounting workflows.
+
+## Project Narrative
 
 I built a lightweight field-operations workflow that turns messy job requests, scheduling context, and invoice notes into a structured operating layer using AppSheet, Google Sheets, Google Apps Script, and QuickBooks Online integration patterns. What I am most proud of is the product design: it maps real operational friction into a human-in-the-loop automation system, with a clear roadmap for agentic AI capabilities like intake classification, invoice-note generation, exception detection, weekly business briefings, and approval-based accounting actions.
 

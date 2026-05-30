@@ -2,7 +2,7 @@
 
 ## Short Answer
 
-I am building a sanitized public version of a field-operations workflow I designed for a small service business. It uses AppSheet, Google Sheets, Google Apps Script, and QuickBooks Online integration patterns to convert messy job requests, scheduling context, and invoice notes into a structured operating layer.
+I am building a sanitized public version of an Arcwise field-operations workflow I designed for a small service business. It uses AppSheet, Google Sheets, Google Apps Script, and QuickBooks Online integration patterns to convert messy job requests, scheduling context, and invoice notes into a structured operating layer.
 
 The part I am most proud of is the product design: it maps real operational friction into a human-in-the-loop automation system, with a clear roadmap for agentic AI capabilities like intake classification, exception detection, invoice-note drafting, weekly business briefings, and approval-based accounting actions.
 
@@ -12,7 +12,7 @@ This is not a chatbot demo. It is a practical operating system for a messy busin
 
 The project started with unstructured requests, manual tracking, fragile spreadsheet workflows, and invoice-prep overhead. The solution creates a structured layer where users can create jobs, update status, review exceptions, and prepare accounting actions through controlled workflows.
 
-That structure is what makes the system agent-ready.
+That structure is what makes the system agent-ready. The current workflow is practical automation; the AI layer is a concrete roadmap built on top of that source-of-truth layer rather than a claim of full autonomy.
 
 ## Agentic AI Angle
 
@@ -34,9 +34,9 @@ Each agent has bounded tools and clear approval gates. The goal is not autonomy 
 
 ## Link Description
 
-Use this if an application field asks for a short project description:
-
 > A sanitized public proof asset for a real field-operations workflow built with AppSheet, Google Sheets, Google Apps Script, and QuickBooks Online integration patterns. It demonstrates product discovery, workflow design, source-of-truth modeling, human-in-the-loop automation, and an agentic AI roadmap for intake triage, exception detection, invoice-note drafting, and approved accounting actions.
+
+Broader Arcwise product and systems context: [Arcwise Systems Portfolio](https://github.com/mrfalc0n/arcwise-systems-portfolio).
 
 ---
 
