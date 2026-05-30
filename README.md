@@ -47,6 +47,7 @@ The system creates a simple operating layer:
 - [diagrams/architecture.mmd](diagrams/architecture.mmd) - Mermaid architecture diagram.
 - [diagrams/agent-loop.mmd](diagrams/agent-loop.mmd) - Mermaid agent loop diagram.
 - [examples/mock-data/jobs.csv](examples/mock-data/jobs.csv) - safe example job records.
+- [appscript/field_ops_controller_sanitized.js](appscript/field_ops_controller_sanitized.js) - full sanitized Apps Script controller.
 - [appscript/intake_processor_sample.js](appscript/intake_processor_sample.js) - sanitized Apps Script-style sample.
 - [appscript/qbo_invoice_payload_sample.js](appscript/qbo_invoice_payload_sample.js) - sanitized invoice payload example.
 
