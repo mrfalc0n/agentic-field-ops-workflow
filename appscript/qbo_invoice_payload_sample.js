@@ -4,8 +4,9 @@
  */
 
 function buildInvoicePayloadSample(job) {
-  if (!job.customerRef || !job.serviceItemRef || !job.invoiceNotes) {
-    throw new Error('Job is not invoice-ready.');
+  const readiness = getInvoiceReadiness_(job);
+  if (!readiness.ready) {
+    throw new Error(`Job is not invoice-ready: ${readiness.missing.join(', ')}`);
   }
 
   return {
@@ -25,5 +26,19 @@ function buildInvoicePayloadSample(job) {
       }
     ],
     PrivateNote: `Created from approved job ${job.jobId}`
+  };
+}
+
+function getInvoiceReadiness_(job) {
+  const required = ['jobId', 'customerRef', 'serviceItemRef', 'invoiceNotes', 'amount'];
+  const missing = required.filter((field) => !job[field]);
+
+  if (job.invoiceNumber) {
+    missing.push('invoiceNumber must be blank before invoice creation');
+  }
+
+  return {
+    ready: missing.length === 0,
+    missing
   };
 }

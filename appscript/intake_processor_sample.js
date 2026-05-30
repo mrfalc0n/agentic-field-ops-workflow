@@ -6,6 +6,19 @@
 const INTAKE_SHEET_NAME = 'App_Intake';
 const JOBS_SHEET_NAME = 'Jobs';
 const REQUIRED_FIELDS = ['Job Date', 'Property', 'Job Type'];
+const INTAKE_STATUS_FIELD = 'Processing Status';
+const JOB_HEADERS = [
+  'Job ID',
+  'Job Date',
+  'Property',
+  'Unit',
+  'Job Type',
+  'Painter',
+  'Status',
+  'Notes',
+  'Source Intake ID',
+  'Intake Fingerprint'
+];
 
 function processIntakeRowsSample() {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -15,34 +28,47 @@ function processIntakeRowsSample() {
   const intakeValues = intakeSheet.getDataRange().getValues();
   const headers = intakeValues[0];
   const rows = intakeValues.slice(1);
+  const existingFingerprints = loadExistingJobFingerprints_(jobsSheet);
 
   rows.forEach((row, index) => {
     const record = rowToObject_(headers, row);
 
-    if (record.Processed === true || record.Processed === 'TRUE') {
+    if (isAlreadyProcessed_(record)) {
       return;
     }
 
     const missing = REQUIRED_FIELDS.filter((field) => !record[field]);
     if (missing.length > 0) {
-      markIntakeStatus_(intakeSheet, index + 2, `Needs review: missing ${missing.join(', ')}`);
+      markIntakeStatus_(intakeSheet, headers, index + 2, `Needs review: missing ${missing.join(', ')}`);
       return;
     }
 
-    const jobRow = [
+    const fingerprint = buildIntakeFingerprint_(record);
+    if (existingFingerprints.has(fingerprint)) {
+      markIntakeStatus_(intakeSheet, headers, index + 2, 'Needs review: possible duplicate');
+      return;
+    }
+
+    const jobRow = buildJobRow_(record, fingerprint);
+    jobsSheet.appendRow(jobRow);
+    existingFingerprints.add(fingerprint);
+    markIntakeStatus_(intakeSheet, headers, index + 2, 'Promoted');
+  });
+}
+
+function buildJobRow_(record, fingerprint) {
+  return [
       Utilities.getUuid(),
       record['Job Date'],
-      record.Property,
-      record.Unit || '',
+      normalizeText_(record.Property),
+      normalizeText_(record.Unit),
       record['Job Type'],
-      record.Painter || '',
+      normalizeText_(record.Painter),
       'Scheduled',
-      record.Notes || ''
-    ];
-
-    jobsSheet.appendRow(jobRow);
-    markIntakeStatus_(intakeSheet, index + 2, 'Promoted');
-  });
+      normalizeText_(record.Notes),
+      record['Intake ID'] || '',
+      fingerprint
+  ];
 }
 
 function rowToObject_(headers, row) {
@@ -52,7 +78,51 @@ function rowToObject_(headers, row) {
   }, {});
 }
 
-function markIntakeStatus_(sheet, rowNumber, status) {
-  const statusColumn = 1;
+function isAlreadyProcessed_(record) {
+  const status = String(record[INTAKE_STATUS_FIELD] || record.Processed || '').toLowerCase();
+  return status === 'promoted' || status === 'true' || status === 'skipped';
+}
+
+function markIntakeStatus_(sheet, headers, rowNumber, status) {
+  const statusColumn = headers.indexOf(INTAKE_STATUS_FIELD) + 1;
+  if (statusColumn < 1) {
+    throw new Error(`Missing required intake status column: ${INTAKE_STATUS_FIELD}`);
+  }
   sheet.getRange(rowNumber, statusColumn).setValue(status);
+}
+
+function loadExistingJobFingerprints_(jobsSheet) {
+  const values = jobsSheet.getDataRange().getValues();
+  if (values.length < 2) {
+    return new Set();
+  }
+
+  const headers = values[0];
+  const fingerprintColumn = headers.indexOf('Intake Fingerprint');
+  if (fingerprintColumn < 0) {
+    return new Set();
+  }
+
+  return new Set(
+    values
+      .slice(1)
+      .map((row) => row[fingerprintColumn])
+      .filter(Boolean)
+  );
+}
+
+function buildIntakeFingerprint_(record) {
+  const parts = [
+    record['Job Date'],
+    record.Property,
+    record.Unit,
+    record['Job Type'],
+    record.Notes
+  ].map(normalizeText_);
+
+  return Utilities.base64EncodeWebSafe(parts.join('|')).slice(0, 48);
+}
+
+function normalizeText_(value) {
+  return String(value || '').trim().replace(/\s+/g, ' ');
 }
