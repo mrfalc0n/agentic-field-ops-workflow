@@ -4,6 +4,34 @@
 
 Do not bolt an agent onto chaos. Create a structured operating layer first, then let agents act through bounded tools with human approval where the action has business or accounting impact.
 
+## LLM Implementation Pattern
+
+The first agent implementation should use the OpenAI Responses API with structured outputs for classification and recommendation tasks. The model should return JSON that conforms to explicit schemas, not loose prose that downstream automation has to interpret.
+
+The core pattern:
+
+1. Build context from a narrow Google Sheets view, such as `App_Intake`, `Needs Attention`, or `Invoice Ready`.
+2. Send only the fields needed for the decision.
+3. Ask the model for a structured result, such as `classification`, `missing_fields`, `risk_level`, `recommended_action`, and `approval_required`.
+4. Validate the returned JSON against the expected schema.
+5. Write the recommendation to a review queue.
+6. Notify the human reviewer through a lightweight channel such as Telegram, email, or AppSheet notification.
+7. Execute state-changing actions only after approval.
+
+Tool execution should use explicit function/tool schemas. The model can propose calls such as `promote_intake_record`, `draft_invoice_note`, or `create_qbo_invoice_draft`, but accounting or customer-facing tools should stay locked behind approval gates.
+
+## Prompt And Context Management
+
+Prompts should be boring, explicit, and testable:
+
+- System instruction: define the agent role, constraints, and forbidden actions.
+- Context block: include only the relevant rows and allowed enum values.
+- Output schema: require structured fields and confidence/risk labels.
+- Validation rule: reject outputs with unknown enum values, missing IDs, unsupported actions, or customer-facing claims not grounded in source fields.
+- Audit rule: store the source row IDs, prompt version, model response, reviewer decision, and final action.
+
+For this project, the source-of-truth layer matters more than a clever prompt. The model should not infer business state from chat history when the sheet already has the operational record.
+
 ## Agent 1: Intake Triage Agent
 
 Purpose: convert messy new requests into clean intake records.
