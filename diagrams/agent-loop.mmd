@@ -1,0 +1,9 @@
+flowchart LR
+  A["Observe structured queue"] --> B["Classify"]
+  B --> C["Normalize fields"]
+  C --> D["Detect exceptions"]
+  D --> E["Draft recommendation"]
+  E --> F["Human approval"]
+  F --> G["Execute narrow tool"]
+  G --> H["Write audit result"]
+  H --> A

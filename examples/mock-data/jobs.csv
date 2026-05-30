@@ -1,0 +1,5 @@
+job_id,job_date,property,unit,job_type,painter,status,po_number,invoice_number,customer_invoice_notes,internal_notes
+JOB-1001,2026-05-04,Riverbend Apartments,12B,Touch-up paint,Avery,Complete,PO-7781,INV-2401,"Touch-up paint completed in unit 12B.","Mock record only."
+JOB-1002,2026-05-05,Oak Hollow Townhomes,7,Repair and repaint,Jordan,Follow-Up,PO-7782,,"Repair and repaint requested; awaiting confirmation on final scope.","Mock record only."
+JOB-1003,2026-05-06,Westfield Flats,3A,Full repaint,Sam,Scheduled,PO-7783,,"Full repaint scheduled for unit 3A.","Mock record only."
+JOB-1004,2026-05-07,Cedar Point Villas,21,Inspection,,Needs Attention,PO-7784,,"Inspection requested; painter assignment missing.","Mock record only."

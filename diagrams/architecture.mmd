@@ -1,0 +1,18 @@
+flowchart LR
+  A["Operator"] --> B["AppSheet UI"]
+  B --> C["App_Intake"]
+  C --> D["Apps Script validation"]
+  D --> E["Jobs table"]
+  E --> F["Open Jobs"]
+  E --> G["Needs Attention"]
+  E --> H["Weekly Summary"]
+  E --> I["Payout Summary"]
+  E --> J["Invoice Ready Queue"]
+  J --> K["Human Approval"]
+  K --> L["QuickBooks Online API"]
+  L --> M["Invoice ID and status"]
+  M --> E
+  N["Future AI Agents"] --> F
+  N --> G
+  N --> J
+  N --> H

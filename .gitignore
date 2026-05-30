@@ -1,0 +1,12 @@
+.env
+.env.*
+.clasp.json
+.clasprc.json
+node_modules/
+dist/
+build/
+*.log
+*.tmp
+*.bak
+credentials*.json
+secrets*.json
